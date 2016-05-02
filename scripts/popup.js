@@ -10,16 +10,16 @@ chrome.tabs.query(queryInfo, function(tabs) {
         var min = "";
         var sec = "";
         var start = "";
+        var checkbox = "";
 
         chrome.tabs.sendMessage(currentTab.id, {reqMsg: "request"}, function(response) {
-            console.log(response.nowTime);
-            min = response.nowTime.split(":")[0];
-            sec = response.nowTime.split(":")[1];
-            start = generateMinitsuInt(min, sec);
+            console.log(response.ariaValueNow);
+            start = response.ariaValueNow;
 
             var iframe = document.createElement("iframe");
+            iframe.name = "inline";
             iframe.width = "420";
-            iframe.height = "315";
+            iframe.height = "350";
             iframe.src = makeYoutubeEmbedUrl(currentTab.url, start);
             iframe.frameBorder = "0";
             iframe.allowFullscreen = true;
@@ -30,11 +30,6 @@ chrome.tabs.query(queryInfo, function(tabs) {
         console.error(e.message);
     }
 })
-
-function generateMinitsuInt(min, sec) {
-    var minSec = (parseInt(min) * 60) + parseInt(sec);
-    return minSec;
-}
 
 function makeYoutubeEmbedUrl(url, start) {
     var movieId = url.split("=")[1].split(/&|#/)[0];
