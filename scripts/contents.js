@@ -18,24 +18,20 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-//inline frame layer
+//inline frame layer(popup)
 var player = document.getElementById("player");
-player.style = "height: 95%";
+player.style = "height: 96%";
 
 var checkbox = document.createElement("input");
 checkbox.type = "checkbox";
 checkbox.id = "repeat";
-document.body.insertBefore(checkbox, null);
+document.body.appendChild(checkbox);
 
 var intervalObj = "";
-
 checkbox.addEventListener("click", function(e) {
-    console.log("click");
     var popupProgBar = document.getElementsByClassName("ytp-progress-bar")[0];
 
     if(checkbox.checked) {
-        console.log("checked");
-
         intervalObj = setInterval(function() {
             var progMax = popupProgBar.getAttribute("aria-valuemax");
             var progNow = popupProgBar.getAttribute("aria-valuenow");
@@ -47,4 +43,4 @@ checkbox.addEventListener("click", function(e) {
     } else {
         clearInterval(intervalObj);
     }
-})
+});

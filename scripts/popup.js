@@ -12,7 +12,12 @@ chrome.tabs.query(queryInfo, function(tabs) {
         var start = "";
         var checkbox = "";
 
-        chrome.tabs.sendMessage(currentTab.id, {reqMsg: "request"}, function(response) {
+        var ReqestObj = {
+            reqMsg: "request",
+            urlProtocol: document.location.href.split(":")[0]
+        }
+
+        chrome.tabs.sendMessage(currentTab.id, ReqestObj, function(response) {
             console.log(response.ariaValueNow);
             start = response.ariaValueNow;
 
